@@ -1,12 +1,13 @@
 /**
  * promise based node-sqlite3 for co or koa
  */
-var db = require('./index.js');
+var db = require('./');
 var chai = require('chai');
 var should = chai.should();
 var expect = chai.expect;
 var assert = chai.assert;
 var fs = require('fs');
+var co = require('co');
 
 chai.use(require('chai-as-promised'));
 
@@ -147,7 +148,9 @@ describe('Statement#bind API test', function() {
 	it('should resolve successful  ', function() {
 		db('test2.db').then(function(data) {
 
-			return data.prepare(selectSQL).bind().should.eventually.resolve;
+			 data.prepare(selectSQL).then(function(statement){
+			 	return statement.bind().should.eventually.resolve;
+			});
 		});
 
 	});
@@ -187,7 +190,7 @@ describe('Statement#finalize API test', function() {
 describe('Statement#run API test', function() {
 	var selectSQL = 'SELECT * FROM testtable2;';
 	
-	it('should resolve successful  ', function() {
+	it('should resolve successful and have property lastID  ', function() {
 		db('test2.db').then(function(data) {
 
 			 data.prepare(selectSQL).then(function(statement){
@@ -214,3 +217,5 @@ describe('Statement#run API test', function() {
 
 	});
 });
+
+

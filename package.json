@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "node-sqlite3's promise version",
   "main": "index.js",
+  "repository": "git@github.com:chenqing/co-sqlite3.git",
   "scripts": {
     "test": "mocha"
   },
@@ -14,14 +15,16 @@
   "author": "chenqing",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^2.10.1",
     "sqlite3": "^3.1.0"
   },
   "devDependencies": {
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
+    "co-mocha": "^1.1.2",
     "gulp": "^3.9.0",
     "gulp-batch": "^1.0.5",
     "gulp-mocha": "^2.1.3",
-    "should": "^7.1.0"
+    "mocha": "^2.3.3"
   }
 }
