@@ -35,14 +35,22 @@ describe('New sqlite3.Database test', function() {
 
 describe('Database#run API test', function() {
 
-	var sqlCreateTable = 'CREATE TABLE IF NOT EXISTS testtable2( id INT NOT NULL) ;INSERT INTO testtable2(id) VALUES(1)';
+	var sqlCreateTable = 'CREATE TABLE IF NOT EXISTS testtable2( id INT NOT NULL)';
+	var sqlInsert = 'INSERT INTO testtable2 (id) VALUES(1)';
 	var sqlCreateTableWrong = 'INSERT INTO testta VALUES("string")';
 
 
-	it('should run sql  success if sql right', function() {
+	it('should create  table  success if sql right', function() {
 		db('test2.db').then(function(data) {
 			return data.run(sqlCreateTable).should.eventually.have.property('lastID');
 		});
+
+	});
+
+	it('should insert data    success if sql right', function() {
+		db('test2.db').then(function(data) {
+			return data.run(sqlInsert).should.eventually.have.property('lastID');
+	});
 
 	});
 	it('should run sql  fail if sql wrong', function() {
@@ -80,7 +88,9 @@ describe('Database#get API test', function() {
 
 	it('should get one record with id ', function() {
 		db('test2.db').then(function(data) {
-			return expect(data.get(selectSQL)).to.eventually.have.property('id');
+			 data.get(selectSQL).then(function(d){
+			 	console.log(d);
+			 })
 		});
 
 	});
