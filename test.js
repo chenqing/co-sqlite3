@@ -7,7 +7,6 @@ var should = chai.should();
 var expect = chai.expect;
 var assert = chai.assert;
 var fs = require('fs');
-var co = require('co');
 
 chai.use(require('chai-as-promised'));
 
