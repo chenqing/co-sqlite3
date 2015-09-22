@@ -1,6 +1,6 @@
 {
   "name": "co-sqlite3",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "node-sqlite3's promise version",
   "main": "index.js",
   "repository": "git@github.com:chenqing/co-sqlite3.git",
