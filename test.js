@@ -74,7 +74,7 @@ describe('Database#close API test', function() {
 
 
 describe('Database#get API test', function() {
-	var selectSQL = 'SELECT * FROM testtable2;'
+	var selectSQL = 'SELECT * FROM testtable2;';
 		// after this test ,delete test2.db
 
 	it('should get one record with id ', function() {
@@ -85,19 +85,9 @@ describe('Database#get API test', function() {
 	});
 });
 
-// db.get test
+// db.all test
 describe('Database#all API test', function() {
 	var selectSQL = 'SELECT * FROM testtable2;';
-
-	before(function(){
-		// insert more data to table
-		db('test2.db').then(function(data){
-			[1,2,3].forEach(function(item){
-				data.run('INSERT INTO testtable2(id) VALUES(?)',[item]).then(function(){
-				});
-			});
-		});
-	});
 
 	after(function(){
 		//fs.unlinkSync('test2.db');
@@ -106,6 +96,120 @@ describe('Database#all API test', function() {
 	it('should get more than one record  ', function() {
 		db('test2.db').then(function(data) {
 			return expect(data.all(selectSQL)).to.eventually.be.a('array');
+		});
+
+	});
+});
+
+// db.each test
+describe('Database#each API test', function() {
+	var selectSQL = 'SELECT * FROM testtable2;';
+
+	it('should get a num  ', function() {
+		db('test2.db').then(function(data) {
+
+			return expect(data.each(selectSQL)).to.eventually.be.a('number');
+		});
+
+	});
+});
+
+// db.exec test
+describe('Database#exec API test', function() {
+	var selectSQL = 'SELECT * FROM testtable2;';
+
+	it('should resolve successful  ', function() {
+		db('test2.db').then(function(data) {
+
+			return data.exec(selectSQL).should.eventually.resolve;
+		});
+
+	});
+});
+
+// db.exec test
+describe('Database#prepare API test', function() {
+	var selectSQL = 'SELECT * FROM testtable2;';
+
+	it('should resolve successful  ', function() {
+		db('test2.db').then(function(data) {
+
+			return data.prepare(selectSQL).should.eventually.resolve;
+		});
+
+	});
+});
+
+// statement.bind test
+describe('Statement#bind API test', function() {
+	var selectSQL = 'SELECT * FROM testtable2;';
+
+	it('should resolve successful  ', function() {
+		db('test2.db').then(function(data) {
+
+			return data.prepare(selectSQL).bind().should.eventually.resolve;
+		});
+
+	});
+});
+
+// statement.reset test
+describe('Statement#reset API test', function() {
+	var selectSQL = 'SELECT * FROM testtable2;';
+
+	it('should resolve successful  ', function() {
+		db('test2.db').then(function(data) {
+
+			 data.prepare(selectSQL).then(function(statement){
+			 	return statement.reset().should.eventually.resolve;
+			});
+		});
+
+	});
+});
+
+// statement.finalize test
+describe('Statement#finalize API test', function() {
+	var selectSQL = 'SELECT * FROM testtable2;';
+	
+	it('should resolve successful  ', function() {
+		db('test2.db').then(function(data) {
+
+			 data.prepare(selectSQL).then(function(statement){
+			 	return statement.finalize().should.eventually.resolve;
+			});
+		});
+
+	});
+});
+
+// statement.run test
+describe('Statement#run API test', function() {
+	var selectSQL = 'SELECT * FROM testtable2;';
+	
+	it('should resolve successful  ', function() {
+		db('test2.db').then(function(data) {
+
+			 data.prepare(selectSQL).then(function(statement){
+			 	return statement.run().should.eventually.have.property('lastID');
+			});
+		});
+
+	});
+});
+
+
+
+// statement.each test
+describe('Statement#run API test', function() {
+	var selectSQL = 'SELECT * FROM testtable2;';
+	
+	it('should resolve successful and got a num   ', function() {
+		db('test2.db').then(function(data) {
+
+			 data.prepare(selectSQL).then(function(statement){
+			 	return expect(statement.each()).to.eventually.be.a('number');
+			});
 		});
 
 	});
