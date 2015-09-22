@@ -10,6 +10,8 @@ npm install co-sqlite3
 
 #### 1. work with co 
 
+
+
 ```
 var co = require('co');
 var sqlite3 = require('co-sqlite3');
@@ -46,11 +48,13 @@ co(function*() {
 
 ```
 
+
 #### 2 work with koa
+
 
 ```
 var koa = require('koa');
-var sqlite3 = require('../index');
+var sqlite3 = require('co-sqlite3');
 
 var app = koa();
 
@@ -69,7 +73,11 @@ app.listen(3000);
 
 ```
 
+
+
 ### 3 just as a promise
+
+
 
 ```
 var sqlite3 = require('co-sqlite3');
