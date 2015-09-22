@@ -1,4 +1,6 @@
-## promise based node-sqlite3 named co-sqlite3
+## co-sqlite3
+
+[![Build Status](https://travis-ci.org/chenqing/co-sqlite3.svg?branch=master)](https://travis-ci.org/chenqing/co-sqlite3)
 
 ### Installing
 
