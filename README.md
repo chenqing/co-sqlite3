@@ -1,14 +1,14 @@
-# promise based node-sqlite3 named co-sqlite3
+## promise based node-sqlite3 named co-sqlite3
 
-## INSTALL
+### Installing
 
 ```
 npm install co-sqlite3
 ```
 
-## Examples
+### Usage
 
-### 1. work with co 
+#### 1. work with co 
 
 ```
 var co = require('co');
@@ -46,7 +46,7 @@ co(function*() {
 
 ```
 
-### 2 work with koa
+#### 2 work with koa
 
 ```
 var koa = require('koa');
@@ -67,4 +67,18 @@ app.use(function* (){
 app.listen(3000);
 
 
+```
+
+### 3 just as a promise
+
+```
+var sqlite3 = require('co-sqlite3');
+
+
+sqlite3('test.db').then(function(db){
+    db.get('SELECT * FROM testtable WHERE id < ? ORDER BY ID DESC ' ,[50])
+      .then(function(row){
+        console.log(row);
+      });
+});
 ```
