@@ -13,13 +13,9 @@ chai.use(require('chai-as-promised'));
 describe('New sqlite3.Database test', function() {
 
 	// after this test ,delete test.db
-	after(function() {
-		fs.unlinkSync('test.db');
-	});
-
 	it('should create success if filename is writeable', function() {
-		db('test.db').then(function(data) {
-			expect(data.db).to.have.property('filename').with.equal('test.db');
+		db('test2.db').then(function(data) {
+			expect(data.db).to.have.property('filename').with.equal('test2.db');
 		}, function(err) {
 			should.not.exist(err);
 		});
@@ -63,10 +59,6 @@ describe('Database#run API test', function() {
 describe('Database#close API test', function() {
 
 	// after this test ,delete test2.db
-	after(function() {
-		//fs.unlinkSync('test2.db');
-
-	});
 	it('should close success have opened connection', function() {
 		db('test2.db').then(function(data) {
 			return data.close().should.eventually.resolve;
@@ -84,11 +76,6 @@ describe('Database#close API test', function() {
 describe('Database#get API test', function() {
 	var selectSQL = 'SELECT * FROM testtable2;'
 		// after this test ,delete test2.db
-	after(function() {
-		//fs.unlinkSync('test2.db');
-
-	});
-
 
 	it('should get one record with id ', function() {
 		db('test2.db').then(function(data) {
@@ -101,24 +88,20 @@ describe('Database#get API test', function() {
 // db.get test
 describe('Database#all API test', function() {
 	var selectSQL = 'SELECT * FROM testtable2;';
-	var state ;
 
 	before(function(){
 		// insert more data to table
 		db('test2.db').then(function(data){
 			[1,2,3].forEach(function(item){
 				data.run('INSERT INTO testtable2(id) VALUES(?)',[item]).then(function(){
-					state = true;
 				});
 			});
 		});
 	});
-		// after this test ,delete test2.db
-	after(function() {
+
+	after(function(){
 		//fs.unlinkSync('test2.db');
-
 	});
-
 
 	it('should get more than one record  ', function() {
 		db('test2.db').then(function(data) {
