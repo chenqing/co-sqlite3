@@ -51,7 +51,7 @@ co(function*() {
 ```
 
 
-#### 2 work with koa
+#### 2. work with koa
 
 
 ```
@@ -77,7 +77,7 @@ app.listen(3000);
 
 
 
-### 3 just as a promise
+### 3. just as a promise
 
 
 
