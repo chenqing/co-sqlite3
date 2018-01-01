@@ -134,7 +134,22 @@ module.exports = function(filename, mode) {
 
 				statement = that.db.prepare.apply(that.db, args);
 			});
-		}
+		},
+		loadExtension: function() {
+			var that = this;
+			var args = Array.prototype.slice.call(arguments, 0);
+
+			return new Promise(function(resolve, reject) {
+				args.push(function(err) {
+					if (err) {
+						reject(err);
+					}
+					resolve(this);
+				});
+
+				that.db.loadExtension.apply(that.db, args);
+			})
+		},
 	};
 	Statement.prototype = {
 		bind: function() {
